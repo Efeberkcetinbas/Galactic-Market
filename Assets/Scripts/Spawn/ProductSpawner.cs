@@ -56,6 +56,8 @@ public class ProductSpawner : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             GameObject product = pool.Get();
+            // Use better solution
+            product.GetComponent<ProductVariety>().RandomizeVariety();
             product.transform.position = GetRandomSpawnPosition();
             Debug.Log("TATAK");
             StartCoroutine(MoveToTarget(product, gameData.TargetPos.position));
