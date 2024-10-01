@@ -21,6 +21,10 @@ public enum GameEvent
     OnRestartLevel,
     OnRestartGame,
 
+    //Time Management
+    OnStartTimer,
+    OnStopTimer
+
 }
 public class EventManager
 {

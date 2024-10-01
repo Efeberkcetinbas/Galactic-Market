@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14db6eb11dc14d4a9aadc380891c5fd, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: 
+  RoundedTime: 0
+  maxTimerRange: 100
+  isStartTimer: 0
+  timerTypes: 1
+  score: 0
+  increaseScore: 0
+  levelIndex: 0
+  levelNumber: 0
+  isGameEnd: 0

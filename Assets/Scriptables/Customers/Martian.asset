@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f07c92ea418df2449552a3fc965389d, type: 3}
+  m_Name: Martian
+  m_EditorClassIdentifier: 
+  customerName: Martian
+  planetName: Martian
+  objectType: 0
+  detectionMethod: 1
+  targetNumber: 70
+  rangeMin: 0
+  rangeMax: 0
