@@ -11,30 +11,27 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private TextMeshProUGUI levelText;
 
-    [Header("Scene Incremental Panel")]
-    [SerializeField] private List<Button> specialButtons=new List<Button>();
+    [Header("Customer")]
+    [SerializeField] private TextMeshProUGUI customerRequirementText;
+    
 
     [Header("DATA'S")]
     public GameData gameData;
-    public PlayerData playerData;
+    public CustomerData customerData;
 
     private void OnEnable()
     {
         EventManager.AddHandler(GameEvent.OnUIUpdate, OnUIUpdate);
-        EventManager.AddHandler(GameEvent.OnPlayerStartMove, OnPlayerStartMove);
-        EventManager.AddHandler(GameEvent.OnNextLevel, OnNextLevel);
-        EventManager.AddHandler(GameEvent.OnRestartLevel, OnRestartLevel);
         EventManager.AddHandler(GameEvent.OnLevelUIUpdate,OnLevelUIUpdate);
+        EventManager.AddHandler(GameEvent.OnUpdateRequirement, OnUpdateRequirement);
         
         
     }
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnUIUpdate, OnUIUpdate);
-        EventManager.RemoveHandler(GameEvent.OnPlayerStartMove, OnPlayerStartMove);
-        EventManager.RemoveHandler(GameEvent.OnNextLevel, OnNextLevel);
-        EventManager.RemoveHandler(GameEvent.OnRestartLevel, OnRestartLevel);
         EventManager.RemoveHandler(GameEvent.OnLevelUIUpdate,OnLevelUIUpdate);
+        EventManager.RemoveHandler(GameEvent.OnUpdateRequirement, OnUpdateRequirement);
     }
 
     
@@ -48,32 +45,31 @@ public class UIManager : MonoBehaviour
     {
         levelText.SetText("LEVEL " + (gameData.levelNumber+1).ToString());
     }
-   
 
-    
-    private void OnPlayerStartMove()
+    private void OnUpdateRequirement()
     {
-        CheckButtonInteractability(false);
-    }
-
-    private void OnNextLevel()
-    {
-        CheckButtonInteractability(true);
-    }
-
-    private void OnRestartLevel()
-    {
-        CheckButtonInteractability(true);
-    }
-
-
-    private void CheckButtonInteractability(bool val)
-    {
-        for (int i = 0; i < specialButtons.Count; i++)
+        customerData=FindObjectOfType<CustomerProperties>().customerData;
+        switch (customerData.detectionMethod)
         {
-            specialButtons[i].interactable=val;
+            case DetectionMethod.GreaterThan:
+                customerRequirementText.SetText("Greater than " + customerData.targetNumber.ToString());
+                break;
+            case DetectionMethod.LessThan:
+                customerRequirementText.SetText("Less than " + customerData.targetNumber.ToString());
+                break;
+            case DetectionMethod.Between:
+                customerRequirementText.SetText("Between " + customerData.rangeMin.ToString() + " - " + customerData.rangeMax.ToString());
+                break;
+            case DetectionMethod.MultipleOf:
+                customerRequirementText.SetText("Multiple of " + customerData.targetNumber.ToString());
+                break;
+            case DetectionMethod.Exact:
+                customerRequirementText.SetText("Exactly " + customerData.targetNumber.ToString());
+                break;
+            default:
+                customerRequirementText.SetText("FINAL");
+                break;
         }
     }
-
     
 }

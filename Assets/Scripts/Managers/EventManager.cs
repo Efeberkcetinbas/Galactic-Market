@@ -6,6 +6,11 @@ public enum GameEvent
 {
     //Player
     OnPlayerStartMove,
+
+    //Customer
+    OnCustomerSpawn,
+    OnUpdateRequirement,
+    OnAllCustomerSatisfy,
     
     //Game Management
     OnGameStart,

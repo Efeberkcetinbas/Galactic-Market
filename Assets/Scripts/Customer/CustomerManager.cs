@@ -11,7 +11,8 @@ public class CustomerManager : MonoBehaviour
     public List<GameObject> customerGameObjects;
 
     // Effect prefab when a customer leaves (assign in Inspector)
-    public GameObject customerEffect;
+    public ParticleSystem EnterCustomerParticle;
+    public ParticleSystem ExitCustomerParticle;
 
     // Private variables
      // Private variables
@@ -69,7 +70,10 @@ public class CustomerManager : MonoBehaviour
 
             // Activate the next customer GameObject
             activeCustomerObject = customerGameObjects[currentCustomerIndex];
+            EnterCustomerParticle.Play();
             activeCustomerObject.SetActive(true);
+            EventManager.Broadcast(GameEvent.OnCustomerSpawn);
+            
             
             // Optionally set customer-specific properties here if needed
             Debug.Log($"Customer {currentCustomer.customerName} from {currentCustomer.planetName} has arrived!");
@@ -130,7 +134,7 @@ public class CustomerManager : MonoBehaviour
     IEnumerator CustomerLeaves(GameObject customerObject)
     {
         // Play the customer leaving effect once
-        Instantiate(customerEffect, customerObject.transform.position, Quaternion.identity);
+        ExitCustomerParticle.Play();
 
         // Wait for effect duration (adjust duration as needed)
         yield return new WaitForSeconds(1f);

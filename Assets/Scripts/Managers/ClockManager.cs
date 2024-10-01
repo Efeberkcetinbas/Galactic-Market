@@ -133,7 +133,7 @@ public class ClockManager : MonoBehaviour
 
     private void ScaleUP()
     {
-        timerText.transform.DOScale(Vector3.one*1.5f,.25f).OnComplete(()=>timerText.transform.DOScale(Vector3.one,.25f));
+        //timerText.transform.DOScale(Vector3.one*1.5f,.25f).OnComplete(()=>timerText.transform.DOScale(Vector3.one,.25f));
     }
 
     private Color GetColorForProgress(float progress)

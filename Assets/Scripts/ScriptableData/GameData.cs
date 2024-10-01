@@ -22,4 +22,7 @@ public class GameData : ScriptableObject
 
     public bool isGameEnd=false;
 
+    //Customer
+    public Transform TargetPos;
+
 }

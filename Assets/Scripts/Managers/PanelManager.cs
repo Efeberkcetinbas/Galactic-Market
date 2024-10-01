@@ -5,14 +5,14 @@ using DG.Tweening;
 using UnityEngine.UI;
 public class PanelManager : MonoBehaviour
 {
-    [SerializeField] private RectTransform StartPanel,ScenePanel,SuccessPanel,FailPanel;
+    [SerializeField] private RectTransform StartPanel,ScenePanel,SuccessPanel,FailPanel,CustomerPanel;
 
     [SerializeField] private List<GameObject> SceneUIs=new List<GameObject>();
     [SerializeField] private List<GameObject> SuccessElements=new List<GameObject>();
     [SerializeField] private List<GameObject> FailElements=new List<GameObject>();
     [SerializeField] private List<GameObject> SpecialElements=new List<GameObject>();
     [SerializeField] private Image Fade;
-    [SerializeField] private float sceneX,sceneY,oldSceneX,oldSceneY,duration;
+    [SerializeField] private float sceneX,sceneY,oldSceneX,oldSceneY,duration,customerNewY,customerOldY;
 
 
     public GameData gameData;
@@ -37,6 +37,7 @@ public class PanelManager : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnGameOver,OnGameOver);
         EventManager.AddHandler(GameEvent.OnFailUI,OnFailUI);
         EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
+        EventManager.AddHandler(GameEvent.OnAllCustomerSatisfy,OnAllCustomerSatisfy);
 
     }
 
@@ -49,6 +50,7 @@ public class PanelManager : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnGameOver,OnGameOver);
         EventManager.RemoveHandler(GameEvent.OnFailUI,OnFailUI);
         EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
+        EventManager.RemoveHandler(GameEvent.OnAllCustomerSatisfy,OnAllCustomerSatisfy);
 
     }
 
@@ -59,14 +61,17 @@ public class PanelManager : MonoBehaviour
         StartPanel.gameObject.SetActive(false);
         ScenePanel.gameObject.SetActive(true);
         SetSceneUIPosition(sceneX,sceneY);
-
+        CustomerPanel.DOAnchorPosY(customerNewY,0.5f).SetEase(Ease.InBounce);
        
         StartCoroutine(SetElementsDotween(SpecialElements));
         EventManager.Broadcast(GameEvent.OnGameStart);
         
     }
 
-
+    private void OnAllCustomerSatisfy()
+    {
+        CustomerPanel.DOAnchorPosY(customerOldY,0.5f).SetEase(Ease.InBounce);
+    }
     
 
     private void OnRestartLevel()
