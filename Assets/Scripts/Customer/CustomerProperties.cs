@@ -19,7 +19,7 @@ public class CustomerProperties : MonoBehaviour
 
     [SerializeField] private GameObject character;
     [SerializeField] private Transform targetPos;
-    [SerializeField] private GameObject productType;
+    [SerializeField] private GameObject product;
     [SerializeField] private Ease ease;
 
 
@@ -62,7 +62,7 @@ public class CustomerProperties : MonoBehaviour
     {
         yield return waitForSeconds;
         character.transform.DOScale(Vector3.one,0.25f).SetEase(ease).OnComplete(()=>{
-            productType.transform.DOScale(Vector3.one,.5f).SetEase(ease);
+            product.transform.DOScale(Vector3.one,.5f).SetEase(ease);
             EventManager.Broadcast(GameEvent.OnUpdateRequirement);
         });
     }

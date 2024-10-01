@@ -5360,6 +5360,7 @@ Transform:
   m_Children:
   - {fileID: 623944135}
   - {fileID: 873740569}
+  - {fileID: 1988643722}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10269,6 +10270,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &830471567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+  m_PrefabInstance: {fileID: 8621530871574908760}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &873740568
 GameObject:
   m_ObjectHideFlags: 0
@@ -10326,9 +10332,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7913740199034777123, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+      propertyPath: product
+      value: 
+      objectReference: {fileID: 1393650407}
+    - target: {fileID: 7913740199034777123, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: customerData
       value: 
       objectReference: {fileID: 11400000, guid: 2bbda69a3ff56364bbd4e93fa8d19208, type: 2}
+    - target: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+      propertyPath: m_Name
+      value: Product
+      objectReference: {fileID: 0}
     - target: {fileID: 8621530872067144327, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: m_Name
       value: Customer (1)
@@ -10881,6 +10895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a08a89574d73ca419ae75d3894d255a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  productSpawner: {fileID: 1988643723}
   levelCustomersData:
   - {fileID: 11400000, guid: 390a837cf64526a4b8b21ebb834af603, type: 2}
   - {fileID: 11400000, guid: 2bbda69a3ff56364bbd4e93fa8d19208, type: 2}
@@ -11022,6 +11037,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330334928}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1393650407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+  m_PrefabInstance: {fileID: 877318928}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1464002284
 GameObject:
   m_ObjectHideFlags: 0
@@ -11348,6 +11368,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646217758}
   m_CullTransparentMesh: 1
+--- !u!1 &1648162262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+  m_PrefabInstance: {fileID: 1938091074}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1797988721
 GameObject:
   m_ObjectHideFlags: 0
@@ -11537,9 +11562,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7913740199034777123, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+      propertyPath: product
+      value: 
+      objectReference: {fileID: 1648162262}
+    - target: {fileID: 7913740199034777123, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: customerData
       value: 
       objectReference: {fileID: 11400000, guid: 2ec3b94e41044d347bbcd792a80c82d5, type: 2}
+    - target: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+      propertyPath: m_Name
+      value: Product
+      objectReference: {fileID: 0}
     - target: {fileID: 8621530872067144327, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: m_Name
       value: Customer (2)
@@ -11603,6 +11636,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8621530872067144327, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
   m_PrefabInstance: {fileID: 1938091074}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1988643721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1988643722}
+  - component: {fileID: 1988643723}
+  m_Layer: 0
+  m_Name: ProductSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1988643722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988643721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 657887999}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1988643723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988643721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36e9d90a17ec6d4c936de646f6bdd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productPools:
+  - productType: 0
+    productPrefab: {fileID: 8452418909101434922, guid: 16639fc53b12d4449b8e89eccc6aa64f, type: 3}
+    poolSize: 100
+  - productType: 1
+    productPrefab: {fileID: 8444237112068558446, guid: 88324a7ad38b3c5468276a7d5f642a4c, type: 3}
+    poolSize: 100
+  spawnInterval: 0.1
+  gameData: {fileID: 11400000, guid: 8fdec5d573637234faf2ea44004b0a89, type: 2}
+  minX: -0.1
+  maxX: 0.1
+  minZ: -8.5
+  maxZ: -7.5
 --- !u!1001 &8621530871574908760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11610,6 +11700,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7913740199034777123, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+      propertyPath: product
+      value: 
+      objectReference: {fileID: 830471567}
+    - target: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
+      propertyPath: m_Name
+      value: Product
+      objectReference: {fileID: 0}
     - target: {fileID: 8621530872067144327, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: m_Name
       value: Customer

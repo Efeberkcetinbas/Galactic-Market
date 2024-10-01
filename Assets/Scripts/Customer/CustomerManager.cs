@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
+    public ProductSpawner productSpawner;
+
     // List of CustomerData assets for the current level (assign in Inspector)
     public List<CustomerData> levelCustomersData;
 
@@ -111,6 +113,7 @@ public class CustomerManager : MonoBehaviour
     }
 
     // Check if the player's input satisfies the customer's request
+    // Check it is end of the product go on Player !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private bool CheckCustomerRequest(int inputNumber)
     {
         switch (currentCustomer.detectionMethod)
@@ -155,6 +158,15 @@ public class CustomerManager : MonoBehaviour
 
     private void OnStopTimer()
     {
+        //Will change. OnStop Timer Event adds in spawn and Goes Player
+        //HandleCustomerRequest(gameData.RoundedTime);
+        StartCoroutine(productSpawner.SpawnAndMoveProducts(currentCustomer.productTypes, gameData.RoundedTime, OnAllProductsArrived));
+    }
+
+    private void OnAllProductsArrived()
+    {
+        Debug.Log("All products have been spawned.");
         HandleCustomerRequest(gameData.RoundedTime);
+        // Perform any additional logic you want after all products are spawned
     }
 }

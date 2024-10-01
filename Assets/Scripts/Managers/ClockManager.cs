@@ -91,7 +91,6 @@ public class ClockManager : MonoBehaviour
         /*isStop=true;
         gameData.RoundedTime=0;*/
 
-        Debug.Log(multiply);
     }
 
     private void OnRestartLevel()
@@ -105,11 +104,9 @@ public class ClockManager : MonoBehaviour
         switch(gameData.timerTypes)
         {
             case TimerTypes.basicTimer:
-                Debug.Log("BURAYA");
                 multiply=1;
                 break;
             case TimerTypes.milliTimer:
-                Debug.Log("ORAYA");
                 //Burasi maxRange arttikca degisecek
                 multiply=50;
                 break;

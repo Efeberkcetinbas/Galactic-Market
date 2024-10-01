@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum ObjectType
+public enum ProductTypes
 {
     Food,
     Toys,

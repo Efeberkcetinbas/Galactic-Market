@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerName: Mark
   planetName: Viltrumite
-  objectType: 3
+  productTypes: 1
   detectionMethod: 2
   targetNumber: 0
   rangeMin: 20

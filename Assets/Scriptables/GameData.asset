@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14db6eb11dc14d4a9aadc380891c5fd, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  RoundedTime: 0
+  RoundedTime: 1
   maxTimerRange: 100
   isStartTimer: 0
   timerTypes: 1
@@ -21,3 +21,4 @@ MonoBehaviour:
   levelIndex: 0
   levelNumber: 0
   isGameEnd: 0
+  TargetPos: {fileID: 0}
