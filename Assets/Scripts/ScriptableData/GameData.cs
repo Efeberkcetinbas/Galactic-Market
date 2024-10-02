@@ -24,5 +24,6 @@ public class GameData : ScriptableObject
 
     //Customer
     public Transform TargetPos;
+    public int CustomerNumber;
 
 }

@@ -19,20 +19,76 @@ public class UIManager : MonoBehaviour
     public GameData gameData;
     public CustomerData customerData;
 
+    [Header("Progress")]
+    [SerializeField] private List<Image> progressImages=new List<Image>();
+    private int index=0;
+
     private void OnEnable()
     {
         EventManager.AddHandler(GameEvent.OnUIUpdate, OnUIUpdate);
+        EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.AddHandler(GameEvent.OnLevelUIUpdate,OnLevelUIUpdate);
+        EventManager.AddHandler(GameEvent.OnCustomerSatisfy,OnCustomerSatisfy);
         EventManager.AddHandler(GameEvent.OnUpdateRequirement, OnUpdateRequirement);
+        EventManager.AddHandler(GameEvent.OnUpdateCustomerNumber,OnUpdateCustomerNumber);
         
         
     }
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnUIUpdate, OnUIUpdate);
+        EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.RemoveHandler(GameEvent.OnLevelUIUpdate,OnLevelUIUpdate);
+        EventManager.RemoveHandler(GameEvent.OnCustomerSatisfy,OnCustomerSatisfy);
         EventManager.RemoveHandler(GameEvent.OnUpdateRequirement, OnUpdateRequirement);
+        EventManager.RemoveHandler(GameEvent.OnUpdateCustomerNumber,OnUpdateCustomerNumber);
     }
+
+    private void Start()
+    {
+        
+        OnRestartLevel();
+    }
+
+    private void OnRestartLevel()
+    {
+        index=0;
+    }
+
+    private void OnNextLevel()
+    {
+        index=0;
+        CountCustomerProgress();
+    }
+
+    private void OnUpdateCustomerNumber()
+    {
+        CountCustomerProgress();
+    }
+
+
+    private void CountCustomerProgress()
+    {
+
+        for (int i = 0; i < progressImages.Count; i++)
+        {
+            progressImages[i].color=Color.white;
+            progressImages[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < gameData.CustomerNumber; i++)
+        {
+            progressImages[i].gameObject.SetActive(true);
+        }
+    }
+
+    private void OnCustomerSatisfy()
+    {
+        progressImages[index].DOColor(Color.green,1f);
+        index++;
+    }
+
+   
 
     
     private void OnUIUpdate()

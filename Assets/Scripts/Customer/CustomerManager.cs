@@ -25,23 +25,35 @@ public class CustomerManager : MonoBehaviour
 
     [SerializeField] private GameData gameData;
 
-    void Start()
+    
+
+
+    private void OnEnable()
+    {
+        EventManager.AddHandler(GameEvent.OnStopTimer,OnStopTimer);
+        EventManager.AddHandler(GameEvent.OnGameStart,OnGameStart);
+        EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.RemoveHandler(GameEvent.OnStopTimer,OnStopTimer);
+        EventManager.RemoveHandler(GameEvent.OnGameStart,OnGameStart);
+        EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
+    }
+
+    private void OnNextLevel()
+    {
+        OnGameStart();
+    }
+
+    private void OnGameStart()
     {
         // Setup customers for the current level from the Inspector
         SetupLevelCustomers();
 
         // Serve the first customer
         ServeNextCustomer();
-    }
-
-    private void OnEnable()
-    {
-        EventManager.AddHandler(GameEvent.OnStopTimer,OnStopTimer);
-    }
-
-    private void OnDisable()
-    {
-        EventManager.RemoveHandler(GameEvent.OnStopTimer,OnStopTimer);
     }
 
     // Setup customers for the current level
@@ -53,6 +65,9 @@ public class CustomerManager : MonoBehaviour
         {
             currentLevelCustomers.Enqueue(data);
         }
+
+        gameData.CustomerNumber = customerGameObjects.Count;
+        EventManager.Broadcast(GameEvent.OnUpdateCustomerNumber);
     }
 
     // Serve the next customer
@@ -86,6 +101,7 @@ public class CustomerManager : MonoBehaviour
         else
         {
             Debug.Log("All customers have been served for this level!");
+            EventManager.Broadcast(GameEvent.OnSuccess);
             // Optionally, proceed to the next level or show level completion UI
         }
     }
@@ -100,6 +116,7 @@ public class CustomerManager : MonoBehaviour
         if (CheckCustomerRequest(playerInput))
         {
             Debug.Log($"Customer {currentCustomer.customerName} is satisfied!");
+            EventManager.Broadcast(GameEvent.OnCustomerSatisfy);
             // Start the coroutine for the customer leaving
             StartCoroutine(CustomerLeaves(activeCustomerObject));
             return true;
@@ -107,6 +124,7 @@ public class CustomerManager : MonoBehaviour
         else
         {
             Debug.Log($"Customer {currentCustomer.customerName} is dissatisfied.");
+            EventManager.Broadcast(GameEvent.OnFail);
             // Optionally handle dissatisfaction (e.g., allow retry, apply penalty)
             return false;
         }

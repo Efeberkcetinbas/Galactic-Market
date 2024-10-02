@@ -4,23 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum GameEvent
 {
-    //Player
-    OnPlayerStartMove,
+    
 
     //Customer
     OnCustomerSpawn,
     OnUpdateRequirement,
+    OnCustomerSatisfy,
     OnAllCustomerSatisfy,
+    OnUpdateCustomerNumber,
     
     //Game Management
     OnGameStart,
-    OnGameOver,
     OnIncreaseScore,
     OnUIUpdate,
     OnLevelUIUpdate,
     
     OnNextLevel,
     OnSuccess,
+    OnFail,
     OnSuccessUI,
     OnFailUI,
     OnRestartLevel,

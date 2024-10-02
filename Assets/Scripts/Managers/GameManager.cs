@@ -6,7 +6,6 @@ using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     public GameData gameData;
-    public PlayerData playerData;
 
 
     private WaitForSeconds waitForSeconds;
@@ -26,6 +25,8 @@ public class GameManager : MonoBehaviour
     {
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
+        EventManager.AddHandler(GameEvent.OnSuccess,OnSuccess);
+        EventManager.AddHandler(GameEvent.OnFail,OnFail);
 
     }
 
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
     {
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
+        EventManager.RemoveHandler(GameEvent.OnSuccess,OnSuccess);
+        EventManager.RemoveHandler(GameEvent.OnFail,OnFail);
 
     }
 
@@ -50,28 +53,25 @@ public class GameManager : MonoBehaviour
         ClearData(false);
     }
 
-    private void OnConditionSuccess()
-    {
-        Debug.Log("PERFECT. CONG");
-        EventManager.Broadcast(GameEvent.OnSuccess);
-        StartCoroutine(OpenSuccess());
-
-        ///////////////////////////
-        
-        Debug.Log("END FAIL");
-        EventManager.Broadcast(GameEvent.OnGameOver);
-    }
+   
 
    
-    private void OnGameOver()
+    private void OnFail()
     {
         gameData.isGameEnd=true;
         StartCoroutine(OpenFail());
     }
 
+    private void OnSuccess()
+    {
+        gameData.isGameEnd=true;
+        StartCoroutine(OpenSuccess());
+    }
+
     private void ClearData(bool val)
     {
         gameData.isGameEnd=val;
+        gameData.CustomerNumber=0;
     }
 
     private IEnumerator OpenSuccess()
@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
 
     private void OpenFailPanel()
     {
-        //effektif
         EventManager.Broadcast(GameEvent.OnFailUI);
     }
 
