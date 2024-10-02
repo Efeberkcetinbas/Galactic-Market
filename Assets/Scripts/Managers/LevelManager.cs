@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
         if (gameData.levelIndex == levels.Count)
         {
             gameData.levelIndex = 0;
-            EventManager.Broadcast(GameEvent.OnRestartGame);
+            //EventManager.Broadcast(GameEvent.OnRestartGame);
         }
         PlayerPrefs.SetInt("LevelNumber", gameData.levelIndex);
         

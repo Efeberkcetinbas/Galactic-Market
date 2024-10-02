@@ -1866,7 +1866,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 800913727}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1333013375}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &800913727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2126,6 +2138,7 @@ MonoBehaviour:
   - {fileID: 1986892503}
   - {fileID: 1128537195}
   - {fileID: 1658449404}
+  index: 0
 --- !u!1001 &877318928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4382,7 +4395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   productSpawner: {fileID: 1988643723}
   levelCustomersData:
-  - {fileID: 11400000, guid: 1158684760173404e9a29267f69d12aa, type: 2}
+  - {fileID: 11400000, guid: 390a837cf64526a4b8b21ebb834af603, type: 2}
   customerGameObjects:
   - {fileID: 2121151705}
   EnterCustomerParticle: {fileID: 1341501417}
@@ -5981,7 +5994,7 @@ PrefabInstance:
     - target: {fileID: 7913740199034777123, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: customerData
       value: 
-      objectReference: {fileID: 11400000, guid: 1158684760173404e9a29267f69d12aa, type: 2}
+      objectReference: {fileID: 11400000, guid: 390a837cf64526a4b8b21ebb834af603, type: 2}
     - target: {fileID: 8621530871858901719, guid: ac37b7ab40c85fc4bb09cd49cf0c56f5, type: 3}
       propertyPath: m_Name
       value: Product

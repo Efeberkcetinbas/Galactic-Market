@@ -13,6 +13,7 @@ public class CustomerLeavingPoint : MonoBehaviour
     {
         EventManager.AddHandler(GameEvent.OnCustomerLeavingPoint,OnCustomerLeavingPoint);
         EventManager.AddHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+        EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
 
     }
 
@@ -20,6 +21,7 @@ public class CustomerLeavingPoint : MonoBehaviour
     {
         EventManager.RemoveHandler(GameEvent.OnCustomerLeavingPoint,OnCustomerLeavingPoint);
         EventManager.RemoveHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+        EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
 
     }
 
@@ -38,5 +40,12 @@ public class CustomerLeavingPoint : MonoBehaviour
         hole.gameObject.SetActive(false);
         rightDoor.DOLocalMoveX(0,0.5f).SetEase(doorEase);
         leftDoor.DOLocalMoveX(0,0.5f).SetEase(doorEase);
+    }
+
+    private void OnRestartLevel()
+    {
+        hole.gameObject.SetActive(false);
+        rightDoor.localPosition=new Vector3(0,0,0);
+        leftDoor.localPosition=new Vector3(0,0,0);
     }
 }

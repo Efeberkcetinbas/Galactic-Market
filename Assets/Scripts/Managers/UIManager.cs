@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     {
         EventManager.AddHandler(GameEvent.OnUIUpdate, OnUIUpdate);
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
         EventManager.AddHandler(GameEvent.OnLevelUIUpdate,OnLevelUIUpdate);
         EventManager.AddHandler(GameEvent.OnCustomerSatisfy,OnCustomerSatisfy);
         EventManager.AddHandler(GameEvent.OnUpdateRequirement, OnUpdateRequirement);
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
     {
         EventManager.RemoveHandler(GameEvent.OnUIUpdate, OnUIUpdate);
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
         EventManager.RemoveHandler(GameEvent.OnLevelUIUpdate,OnLevelUIUpdate);
         EventManager.RemoveHandler(GameEvent.OnCustomerSatisfy,OnCustomerSatisfy);
         EventManager.RemoveHandler(GameEvent.OnUpdateRequirement, OnUpdateRequirement);

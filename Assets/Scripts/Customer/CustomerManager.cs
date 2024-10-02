@@ -36,6 +36,7 @@ public class CustomerManager : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnStopTimer,OnStopTimer);
         EventManager.AddHandler(GameEvent.OnGameStart,OnGameStart);
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
     }
 
     private void OnDisable()
@@ -43,10 +44,20 @@ public class CustomerManager : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnStopTimer,OnStopTimer);
         EventManager.RemoveHandler(GameEvent.OnGameStart,OnGameStart);
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
     }
 
     private void OnNextLevel()
     {
+        OnGameStart();
+    }
+
+    private void OnRestartLevel()
+    {
+        currentCustomerIndex=0;
+        activeCustomerObject.SetActive(false);
+        currentCustomer = null;
+        activeCustomerObject = null;
         OnGameStart();
     }
 
@@ -167,6 +178,8 @@ public class CustomerManager : MonoBehaviour
             // Deactivate the customer object
             customerObject.SetActive(false);
 
+            //For Restart
+            customerObject.transform.position=Vector3.zero;
             // Clear the current customer reference
             currentCustomer = null;
 

@@ -88,6 +88,7 @@ public class ClockManager : MonoBehaviour
         gameData.RoundedTime=0;
         timerText.SetText(gameData.RoundedTime.ToString());
         progressBarFill.fillAmount=0;
+        progressBarFill.color = GetColorForProgress(0);
         /*isStop=true;
         gameData.RoundedTime=0;*/
 
@@ -97,6 +98,8 @@ public class ClockManager : MonoBehaviour
     {
         gameData.RoundedTime=0;
         timerText.SetText(gameData.RoundedTime.ToString());
+        progressBarFill.fillAmount = 0;
+        progressBarFill.color = GetColorForProgress(0);
     }
 
     private void CheckTimerType()

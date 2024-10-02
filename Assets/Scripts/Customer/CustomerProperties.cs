@@ -58,8 +58,11 @@ public class CustomerProperties : MonoBehaviour
         StartCoroutine(Create());
     }
 
+    
     private IEnumerator Create()
     {
+        character.transform.localScale=Vector3.zero;
+        product.transform.localScale=Vector3.zero;
         yield return waitForSeconds;
         character.transform.DOScale(Vector3.one,1f).SetEase(ease).OnComplete(()=>{
             product.transform.DOScale(Vector3.one,.5f).SetEase(ease);
