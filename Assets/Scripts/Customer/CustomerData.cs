@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CustomerData", menuName = "Customers/Customer", order = 0)]
 public class CustomerData : ScriptableObject
 {
+    public Sprite sprite;
     public string customerName;
     public string planetName;
     public ProductTypes productTypes;

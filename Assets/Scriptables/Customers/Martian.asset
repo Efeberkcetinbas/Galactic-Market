@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f07c92ea418df2449552a3fc965389d, type: 3}
   m_Name: Martian
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 0ac55f9f886d827408c102bdf33c5ff7, type: 3}
   customerName: Martian
   planetName: Martian
-  objectType: 0
+  productTypes: 0
   detectionMethod: 1
   targetNumber: 70
   rangeMin: 0

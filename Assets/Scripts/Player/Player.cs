@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(!gameData.isGameEnd)
+        if(!gameData.isGameEnd && !gameData.isGivingProduct)
             CheckStartStop();
     }
 

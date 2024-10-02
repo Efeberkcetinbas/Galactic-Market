@@ -178,13 +178,23 @@ public class CustomerManager : MonoBehaviour
     {
         //Will change. OnStop Timer Event adds in spawn and Goes Player
         //HandleCustomerRequest(gameData.RoundedTime);
-        StartCoroutine(productSpawner.SpawnAndMoveProducts(currentCustomer.productTypes, gameData.RoundedTime, OnAllProductsArrived));
+        if(gameData.RoundedTime>0)
+        {
+            StartCoroutine(productSpawner.SpawnAndMoveProducts(currentCustomer.productTypes, gameData.RoundedTime, OnAllProductsArrived));
+            gameData.isGivingProduct=true;
+        }
+        else
+        {
+            EventManager.Broadcast(GameEvent.OnFail);
+        }
+        
     }
 
     private void OnAllProductsArrived()
     {
         Debug.Log("All products have been spawned.");
         HandleCustomerRequest(gameData.RoundedTime);
+        gameData.isGivingProduct=false;
         // Perform any additional logic you want after all products are spawned
     }
 }

@@ -11,6 +11,7 @@ public class GameData : ScriptableObject
     public int maxTimerRange;
 
     public bool isStartTimer=false;
+    public bool isGivingProduct=false;
 
     public TimerTypes timerTypes;
 

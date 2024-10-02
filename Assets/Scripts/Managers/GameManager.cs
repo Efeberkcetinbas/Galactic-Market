@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         ClearData(false);
         
+        
     }
 
     private void OnRestartLevel()
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
     {
         gameData.isGameEnd=val;
         gameData.CustomerNumber=0;
+        gameData.isGivingProduct=false;
     }
 
     private IEnumerator OpenSuccess()

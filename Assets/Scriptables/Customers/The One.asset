@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f07c92ea418df2449552a3fc965389d, type: 3}
-  m_Name: Mark
+  m_Name: The One
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
-  customerName: Mark
-  planetName: Viltrumite
+  sprite: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  customerName: 
+  planetName: 
   productTypes: 1
-  detectionMethod: 2
-  targetNumber: 0
-  rangeMin: 20
-  rangeMax: 100
+  detectionMethod: 4
+  targetNumber: 100
+  rangeMin: 0
+  rangeMax: 0

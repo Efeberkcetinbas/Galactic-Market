@@ -10,9 +10,12 @@ public class UIManager : MonoBehaviour
     [Header("Scene Texts")]
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private TextMeshProUGUI levelText;
+    
 
     [Header("Customer")]
     [SerializeField] private TextMeshProUGUI customerRequirementText;
+    [SerializeField] private TextMeshProUGUI customerName;
+    [SerializeField] private Image customerPlanetImage;
     
 
     [Header("DATA'S")]
@@ -88,7 +91,6 @@ public class UIManager : MonoBehaviour
         index++;
     }
 
-   
 
     
     private void OnUIUpdate()
@@ -126,6 +128,12 @@ public class UIManager : MonoBehaviour
                 customerRequirementText.SetText("FINAL");
                 break;
         }
+
+           //($"Customer {currentCustomer.customerName} from {currentCustomer.planetName} has arrived!")
+        customerName.SetText("Name : " + customerData.customerName);
+        customerPlanetImage.sprite=customerData.sprite;
+
+
     }
     
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ProductSpawner : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class ProductSpawner : MonoBehaviour
     public float spawnInterval = 1f; // Time interval between spawns
     [SerializeField] private GameData gameData;
     [SerializeField] private float minX,maxX,minZ,maxZ;
+    [SerializeField] private Ease ease;
 
     private int productsInMovement; // Count the products in movement
     private System.Action onAllProductsArrived; // Store the callback
@@ -60,7 +62,8 @@ public class ProductSpawner : MonoBehaviour
             product.GetComponent<ProductVariety>().RandomizeVariety();
             product.transform.position = GetRandomSpawnPosition();
             Debug.Log("TATAK");
-            StartCoroutine(MoveToTarget(product, gameData.TargetPos.position));
+            //StartCoroutine(MoveToTarget(product, gameData.TargetPos.position));
+            MoveToTargetWithDotween(product, gameData.TargetPos.position);
 
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -87,6 +90,34 @@ public class ProductSpawner : MonoBehaviour
             // All products have arrived, invoke the callback
             onAllProductsArrived?.Invoke();
         }
+    }
+
+    public void MoveToTargetWithDotween(GameObject product, Vector3 targetPosition)
+    {
+        float speed = 5f;
+
+        
+
+        // Calculate the duration based on speed and distance
+        float distance = Vector3.Distance(product.transform.position, targetPosition);
+        float duration = distance / speed;
+
+        // Move the product using DOTween
+        product.transform.DOMove(targetPosition, duration)
+            .SetEase(ease) // Constant speed (Linear motion)
+            .OnComplete(() => 
+            {
+                // Once the product reaches the target, return it to the pool
+                ReturnProductToPool(product);
+
+                // Decrement the products in movement and check if all products have arrived
+                productsInMovement--;
+                if (productsInMovement <= 0)
+                {
+                    // All products have arrived, invoke the callback
+                    onAllProductsArrived?.Invoke();
+                }
+            });
     }
 
     public void ReturnProductToPool(GameObject product)
