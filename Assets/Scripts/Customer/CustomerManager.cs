@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class CustomerManager : MonoBehaviour
 {
     public ProductSpawner productSpawner;
@@ -13,8 +13,11 @@ public class CustomerManager : MonoBehaviour
     public List<GameObject> customerGameObjects;
 
     // Effect prefab when a customer leaves (assign in Inspector)
-    public ParticleSystem EnterCustomerParticle;
-    public ParticleSystem ExitCustomerParticle;
+    // Every level it can be specified hole type or particle type
+    [SerializeField] private ParticleSystem EnterCustomerParticle;
+
+    
+    
 
     // Private variables
      // Private variables
@@ -97,6 +100,7 @@ public class CustomerManager : MonoBehaviour
 
             // Increment the index for the next customer
             currentCustomerIndex++;
+            //gameData.isGivingProduct=false;
         }
         else
         {
@@ -154,22 +158,26 @@ public class CustomerManager : MonoBehaviour
     // Coroutine to handle customer leaving with an effect
     IEnumerator CustomerLeaves(GameObject customerObject)
     {
-        // Play the customer leaving effect once
-        ExitCustomerParticle.Play();
-
+        EventManager.Broadcast(GameEvent.OnCustomerLeavePress);
         // Wait for effect duration (adjust duration as needed)
+        yield return new WaitForSeconds(2f);
+
+        customerObject.transform.DOMoveY(-3,.5f).SetEase(Ease.Linear).OnComplete(()=>{
+
+            // Deactivate the customer object
+            customerObject.SetActive(false);
+
+            // Clear the current customer reference
+            currentCustomer = null;
+
+            // Clear the active customer object reference
+            activeCustomerObject = null;
+            
+            // Proceed to the next customer
+            
+        });
+
         yield return new WaitForSeconds(1f);
-
-        // Deactivate the customer object
-        customerObject.SetActive(false);
-
-        // Clear the current customer reference
-        currentCustomer = null;
-
-        // Clear the active customer object reference
-        activeCustomerObject = null;
-
-        // Proceed to the next customer
         ServeNextCustomer();
     }
 
@@ -194,7 +202,7 @@ public class CustomerManager : MonoBehaviour
     {
         Debug.Log("All products have been spawned.");
         HandleCustomerRequest(gameData.RoundedTime);
-        gameData.isGivingProduct=false;
+        
         // Perform any additional logic you want after all products are spawned
     }
 }

@@ -5,20 +5,22 @@ using UnityEngine;
 public class ParticleManager : MonoBehaviour
 {
     [SerializeField] private List<ParticleSystem> successParticles=new List<ParticleSystem>();
+    [SerializeField] private List<ParticleSystem> fallingParticles=new List<ParticleSystem>();
 
 
     private void OnEnable()
     {
-        EventManager.AddHandler(GameEvent.OnSuccess,OnSuccess);
-        EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
+        /*EventManager.AddHandler(GameEvent.OnSuccess,OnSuccess);
+        EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);*/
+        EventManager.AddHandler(GameEvent.OnCustomerLeaves, OnCustomerLeaves);
 
     }
 
     private void OnDisable()
     {
-        EventManager.RemoveHandler(GameEvent.OnSuccess,OnSuccess);
-        EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
-
+        /*EventManager.RemoveHandler(GameEvent.OnSuccess,OnSuccess);
+        EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);*/
+        EventManager.RemoveHandler(GameEvent.OnCustomerLeaves, OnCustomerLeaves);
     }
 
     private void OnSuccess()
@@ -41,7 +43,17 @@ public class ParticleManager : MonoBehaviour
 
     private void OnNextLevel()
     {
+        for (int i = 0; i < successParticles.Count; i++)
+        {
+            successParticles[i].Stop();
+        }
         OpenClose(false);
+    }
+
+    private void OnCustomerLeaves()
+    {
+        int randomVal=Random.Range(0,fallingParticles.Count);
+        fallingParticles[randomVal].Play();
     }
 
 }

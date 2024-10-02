@@ -61,9 +61,12 @@ public class CustomerProperties : MonoBehaviour
     private IEnumerator Create()
     {
         yield return waitForSeconds;
-        character.transform.DOScale(Vector3.one,0.25f).SetEase(ease).OnComplete(()=>{
+        character.transform.DOScale(Vector3.one,1f).SetEase(ease).OnComplete(()=>{
             product.transform.DOScale(Vector3.one,.5f).SetEase(ease);
             EventManager.Broadcast(GameEvent.OnUpdateRequirement);
+
+            //Allow player to use stop time
+            gameData.isGivingProduct=false;
         });
     }
 
