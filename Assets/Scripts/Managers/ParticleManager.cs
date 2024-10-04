@@ -5,7 +5,9 @@ using UnityEngine;
 public class ParticleManager : MonoBehaviour
 {
     [SerializeField] private List<ParticleSystem> successParticles=new List<ParticleSystem>();
-    [SerializeField] private List<ParticleSystem> fallingParticles=new List<ParticleSystem>();
+    //[SerializeField] private List<ParticleSystem> fallingParticles=new List<ParticleSystem>();
+    [SerializeField] private ParticleSystem exitParticle;
+    [SerializeField] private List<Color> colors=new List<Color>(); 
 
 
     private void OnEnable()
@@ -52,8 +54,37 @@ public class ParticleManager : MonoBehaviour
 
     private void OnCustomerLeaves()
     {
-        int randomVal=Random.Range(0,fallingParticles.Count);
-        fallingParticles[randomVal].Play();
+        /*int randomVal=Random.Range(0,fallingParticles.Count);
+        fallingParticles[randomVal].Play();*/
+        SetParticleSystemColor(exitParticle,colors);
+        ParticleSystem[] childParticles =exitParticle.GetComponentsInChildren<ParticleSystem>();
+        for (int j = 0; j < childParticles.Length; j++)
+        {
+            SetParticleSystemColor(childParticles[j], colors);
+        }
+        exitParticle.Play();
     }
+
+    
+
+    /*
+    
+    SetParticleSystemColor(particles[i],color);
+            ParticleSystem[] childParticles = particles[i].GetComponentsInChildren<ParticleSystem>();
+            for (int j = 0; j < childParticles.Length; j++)
+            {
+                SetParticleSystemColor(childParticles[j], color);
+            }
+    
+    
+    */
+
+    private void SetParticleSystemColor(ParticleSystem particleSystem, List<Color> colors)
+    {
+        int randomColor=Random.Range(0, colors.Count);
+        var main = particleSystem.main;
+        main.startColor = colors[randomColor];
+    }
+
 
 }

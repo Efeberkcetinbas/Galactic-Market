@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using DG.Tweening;
 
 public class CustomerProperties : MonoBehaviour
@@ -20,7 +19,7 @@ public class CustomerProperties : MonoBehaviour
     [SerializeField] private GameObject character;
     [SerializeField] private Transform targetPos;
     [SerializeField] private GameObject product;
-    [SerializeField] private Ease ease;
+    [SerializeField] private Ease ease,hitEase;
 
 
     private WaitForSeconds waitForSeconds;
@@ -36,11 +35,13 @@ public class CustomerProperties : MonoBehaviour
     private void OnEnable()
     {
         EventManager.AddHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+        EventManager.AddHandler(GameEvent.OnProductHit,OnProductHit);
     }
 
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+        EventManager.RemoveHandler(GameEvent.OnProductHit,OnProductHit);
     }
     private void OnUpdateUI()
     {
@@ -72,6 +73,13 @@ public class CustomerProperties : MonoBehaviour
             gameData.isGivingProduct=false;
         });
     }
+
+    private void OnProductHit()
+    {
+        transform.DOShakeScale(.1f,.5f,2).SetEase(hitEase);
+    }
+
+
 
 
 }

@@ -8,6 +8,7 @@ public class RemoteControl : MonoBehaviour
     [SerializeField] private Transform customerLeaveButton,stopTimerButton;
     [SerializeField] private float y,oldy,duration;
     [SerializeField] private Ease ease;
+    [SerializeField] private GameData gameData;
 
     private void OnEnable()
     {
@@ -26,7 +27,11 @@ public class RemoteControl : MonoBehaviour
 
     private void OnStopTimer()
     {
-        stopTimerButton.DOLocalMoveY(y,duration).SetEase(ease).OnComplete(()=>stopTimerButton.DOLocalMoveY(oldy,duration));
+        gameData.isGivingProduct=true;
+        stopTimerButton.DOLocalMoveY(y,duration).SetEase(ease).OnComplete(()=>{
+            EventManager.Broadcast(GameEvent.OnPressStopTimer);
+            stopTimerButton.DOLocalMoveY(oldy,duration);
+        });
     }
 
     private void OnCustomerLeavePress()

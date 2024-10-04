@@ -15,6 +15,10 @@ public enum GameEvent
     OnCustomerLeaves,
     OnAllCustomerSatisfy,
     OnUpdateCustomerNumber,
+
+    //Product
+    OnSpawnProduct,
+    OnProductHit,
     
     //Game Management
     OnGameStart,
@@ -32,6 +36,7 @@ public enum GameEvent
 
     //Time Management
     OnStartTimer,
+    OnPressStopTimer,
     OnStopTimer
 
 }

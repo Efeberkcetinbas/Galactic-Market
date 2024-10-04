@@ -19,7 +19,7 @@ public class ProductSpawner : MonoBehaviour
     public float spawnInterval = 1f; // Time interval between spawns
     [SerializeField] private GameData gameData;
     [SerializeField] private float minX,maxX,minZ,maxZ;
-    [SerializeField] private Ease ease;
+    [SerializeField] private Ease ease,shootingEase;
     [SerializeField] private Transform shootingMechanism;
 
     private int productsInMovement; // Count the products in movement
@@ -66,6 +66,7 @@ public class ProductSpawner : MonoBehaviour
             product.GetComponent<ProductVariety>().RandomizeVariety();
             product.transform.position = GetRandomSpawnPosition();
             shootingMechanism.DOShakeScale(.05f,.1f);
+            EventManager.Broadcast(GameEvent.OnSpawnProduct);
             Debug.Log("TATAK");
             //StartCoroutine(MoveToTarget(product, gameData.TargetPos.position));
             MoveToTargetWithDotween(product, gameData.TargetPos.position);
@@ -114,6 +115,7 @@ public class ProductSpawner : MonoBehaviour
             {
                 // Once the product reaches the target, return it to the pool
                 ReturnProductToPool(product);
+                EventManager.Broadcast(GameEvent.OnProductHit);
 
                 // Decrement the products in movement and check if all products have arrived
                 productsInMovement--;
@@ -122,7 +124,7 @@ public class ProductSpawner : MonoBehaviour
                     // All products have arrived, invoke the callback
                     onAllProductsArrived?.Invoke();
                     //StopShootingAnimation
-                    shootingMechanism.DOLocalMoveY(0,1).SetEase(Ease.Flash);
+                    shootingMechanism.DOLocalMoveY(0,1).SetEase(shootingEase);
                 }
             });
     }

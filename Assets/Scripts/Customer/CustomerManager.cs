@@ -33,7 +33,7 @@ public class CustomerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.AddHandler(GameEvent.OnStopTimer,OnStopTimer);
+        EventManager.AddHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
         EventManager.AddHandler(GameEvent.OnGameStart,OnGameStart);
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
@@ -41,7 +41,7 @@ public class CustomerManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.RemoveHandler(GameEvent.OnStopTimer,OnStopTimer);
+        EventManager.RemoveHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
         EventManager.RemoveHandler(GameEvent.OnGameStart,OnGameStart);
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
         EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
@@ -195,14 +195,14 @@ public class CustomerManager : MonoBehaviour
     }
 
 
-    private void OnStopTimer()
+    private void OnPressStopTimer()
     {
         //Will change. OnStop Timer Event adds in spawn and Goes Player
         //HandleCustomerRequest(gameData.RoundedTime);
         if(gameData.RoundedTime>0)
         {
             StartCoroutine(productSpawner.SpawnAndMoveProducts(currentCustomer.productTypes, gameData.RoundedTime, OnAllProductsArrived));
-            gameData.isGivingProduct=true;
+            //gameData.isGivingProduct=true;
         }
         else
         {

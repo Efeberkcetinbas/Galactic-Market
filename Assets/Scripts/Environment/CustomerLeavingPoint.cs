@@ -4,9 +4,16 @@ using UnityEngine;
 using DG.Tweening;
 public class CustomerLeavingPoint : MonoBehaviour
 {
-    //If I cant find available hole animation. TEMP !!!!!!!!!!!!!!!!!!!!!!!!!
-    [SerializeField] private Transform leftDoor,rightDoor,hole;
-    [SerializeField] private Ease doorEase;
+    [SerializeField] private List<MeshRenderer> signals=new List<MeshRenderer>();
+    
+
+    private WaitForSeconds waitForSeconds;
+
+
+    private void Start()
+    {
+        waitForSeconds=new WaitForSeconds(.5f);
+    }
 
 
     private void OnEnable()
@@ -28,24 +35,31 @@ public class CustomerLeavingPoint : MonoBehaviour
 
     private void OnCustomerLeavingPoint()
     {
-        rightDoor.DOLocalMoveX(-1,0.5f).SetEase(doorEase);
-        leftDoor.DOLocalMoveX(1,0.5f).SetEase(doorEase).OnComplete(()=>{
-            hole.gameObject.SetActive(true);
-            EventManager.Broadcast(GameEvent.OnCustomerLeaves);
-        });
+        SetSignals(Color.green,0.5f);
+        StartCoroutine(SetCustomerLeaves());
+    }
+
+    private void SetSignals(Color color,float duration)
+    {
+        for (int i = 0; i < signals.Count; i++)
+        {
+            signals[i].material.DOColor(color,duration);
+        }
+    }
+
+    private IEnumerator SetCustomerLeaves()
+    {
+        yield return waitForSeconds;
+        EventManager.Broadcast(GameEvent.OnCustomerLeaves);
     }
 
     private void OnCustomerSpawn()
     {
-        hole.gameObject.SetActive(false);
-        rightDoor.DOLocalMoveX(0,0.5f).SetEase(doorEase);
-        leftDoor.DOLocalMoveX(0,0.5f).SetEase(doorEase);
+        SetSignals(Color.white,0.25f);
     }
 
     private void OnRestartLevel()
     {
-        hole.gameObject.SetActive(false);
-        rightDoor.localPosition=new Vector3(0,0,0);
-        leftDoor.localPosition=new Vector3(0,0,0);
+        SetSignals(Color.white,0.1f);
     }
 }

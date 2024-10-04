@@ -27,11 +27,17 @@ public class CameraManager : MonoBehaviour
     private void OnEnable() 
     {
         EventManager.AddHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.AddHandler(GameEvent.OnCustomerLeaves,OnCustomerLeaves);
+        EventManager.AddHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+        EventManager.AddHandler(GameEvent.OnSpawnProduct,OnSpawnProduct);
     }
 
     private void OnDisable() 
     {
         EventManager.RemoveHandler(GameEvent.OnNextLevel,OnNextLevel);
+        EventManager.RemoveHandler(GameEvent.OnCustomerLeaves,OnCustomerLeaves);
+        EventManager.RemoveHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+        EventManager.RemoveHandler(GameEvent.OnSpawnProduct,OnSpawnProduct);
 
     }
 
@@ -44,6 +50,23 @@ public class CameraManager : MonoBehaviour
     {
 
     }
+
+    private void OnCustomerLeaves()
+    {
+        Noise(amplitudeGain,frequencyGain,shakeTime);
+        ChangeFieldOfViewHit(newFieldOfView,oldFieldOfView,0.1f);
+    }
+
+    private void OnCustomerSpawn()
+    {
+        Noise(amplitudeGain,frequencyGain,shakeTime);
+    }
+
+    private void OnSpawnProduct()
+    {
+        Noise(.1f,.1f,.1f);
+    }
+
 
     
     
