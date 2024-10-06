@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 
     //Gameplay Sounds
     [SerializeField] private AudioClip spawnProductSound,customerLeavingPointSound,stopTimerSound,customerSpawnSound,customerSatisfySound,
-    customerLeavesSound,pressStopTimer;
+    customerLeavesSound,customerLeavePressSound,pressStopTimer;
 
     AudioSource musicSource,effectSource;
 
@@ -34,6 +34,7 @@ public class AudioManager : MonoBehaviour
 
         EventManager.AddHandler(GameEvent.OnCustomerLeavingPoint,OnCustomerLeavingPoint);
         EventManager.AddHandler(GameEvent.OnCustomerLeaves,OnCustomerLeaves);
+        EventManager.AddHandler(GameEvent.OnCustomerLeavePress,OnCustomerLeavePress);
         EventManager.AddHandler(GameEvent.OnCustomerSatisfy,OnCustomerSatisfy);
         EventManager.AddHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
         EventManager.AddHandler(GameEvent.OnSpawnProduct,OnSpawnProduct);
@@ -54,6 +55,7 @@ public class AudioManager : MonoBehaviour
 
         EventManager.RemoveHandler(GameEvent.OnCustomerLeavingPoint,OnCustomerLeavingPoint);
         EventManager.RemoveHandler(GameEvent.OnCustomerLeaves,OnCustomerLeaves);
+        EventManager.RemoveHandler(GameEvent.OnCustomerLeavePress,OnCustomerLeavePress);
         EventManager.RemoveHandler(GameEvent.OnCustomerSatisfy,OnCustomerSatisfy);
         EventManager.RemoveHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
         EventManager.RemoveHandler(GameEvent.OnSpawnProduct,OnSpawnProduct);
@@ -124,6 +126,11 @@ public class AudioManager : MonoBehaviour
     private void OnCustomerLeavingPoint()
     {
         effectSource.PlayOneShot(customerLeavingPointSound);
+    }
+
+    private void OnCustomerLeavePress()
+    {
+        effectSource.PlayOneShot(customerLeavePressSound);
     }
 
     private void OnCustomerLeaves()
