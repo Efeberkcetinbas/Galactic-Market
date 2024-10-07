@@ -13,6 +13,7 @@ public enum GameEvent
     OnCustomerLeavingPoint,
     OnCustomerLeavePress,
     OnCustomerLeaves,
+    OnCustomerLeaved,
     OnAllCustomerSatisfy,
     OnUpdateCustomerNumber,
 

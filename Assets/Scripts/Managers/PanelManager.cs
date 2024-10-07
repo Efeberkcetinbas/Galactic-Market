@@ -14,6 +14,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private Image Fade;
     [SerializeField] private float sceneX,sceneY,oldSceneX,oldSceneY,duration;
 
+    [SerializeField] private GameObject opening;
 
     public GameData gameData;
 

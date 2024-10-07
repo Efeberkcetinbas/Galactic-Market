@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using DG.Tweening;
 
 public class CustomerProperties : MonoBehaviour
@@ -10,9 +9,7 @@ public class CustomerProperties : MonoBehaviour
     public CustomerData customerData;
     [SerializeField] private GameData gameData;
 
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI planetText;
+    
 
     [Header("Object Type")]
 
@@ -21,13 +18,18 @@ public class CustomerProperties : MonoBehaviour
     [SerializeField] private GameObject product;
     [SerializeField] private Ease ease,hitEase;
 
+    [Header("Players")]
+    [SerializeField] private List<GameObject> charactersMesh;
+
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
 
     private WaitForSeconds waitForSeconds;
+    
 
 
     private void Start()
     {
-        OnUpdateUI();
         OnUpdateTargetPos();
         waitForSeconds=new WaitForSeconds(2);
     }
@@ -36,18 +38,18 @@ public class CustomerProperties : MonoBehaviour
     {
         EventManager.AddHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
         EventManager.AddHandler(GameEvent.OnProductHit,OnProductHit);
+        EventManager.AddHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
+        EventManager.AddHandler(GameEvent.OnCustomerLeaved,OnCustomerLeaved);
     }
 
     private void OnDisable()
     {
         EventManager.RemoveHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
         EventManager.RemoveHandler(GameEvent.OnProductHit,OnProductHit);
+        EventManager.RemoveHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
+        EventManager.RemoveHandler(GameEvent.OnCustomerLeaved,OnCustomerLeaved);
     }
-    private void OnUpdateUI()
-    {
-        nameText.SetText(customerData.customerName);
-        planetText.SetText(customerData.planetName);
-    }
+    
 
     private void OnUpdateTargetPos()
     {
@@ -64,10 +66,12 @@ public class CustomerProperties : MonoBehaviour
     {
         character.transform.localScale=Vector3.zero;
         product.transform.localScale=Vector3.zero;
+        CreateRandomCharacter();
         yield return waitForSeconds;
+        EventManager.Broadcast(GameEvent.OnUpdateRequirement);
         character.transform.DOScale(Vector3.one,1f).SetEase(ease).OnComplete(()=>{
-            product.transform.DOScale(Vector3.one,.5f).SetEase(ease);
-            EventManager.Broadcast(GameEvent.OnUpdateRequirement);
+            product.transform.DOScale(Vector3.one*100,.5f).SetEase(ease);
+            //EventManager.Broadcast(GameEvent.OnUpdateRequirement);
 
             //Allow player to use stop time
             gameData.isGivingProduct=false;
@@ -76,7 +80,30 @@ public class CustomerProperties : MonoBehaviour
 
     private void OnProductHit()
     {
-        transform.DOShakeScale(.1f,.5f,2).SetEase(hitEase);
+        transform.DOShakeScale(.1f,.1f,1).SetEase(hitEase);
+        product.transform.DOShakeScale(.1f,20f,2).SetEase(hitEase);
+    }
+
+    private void OnPressStopTimer()
+    {
+        animator.SetTrigger("CollectProducts");
+    }
+
+    private void OnCustomerLeaved()
+    {
+        animator.SetTrigger("Falling");
+    }
+
+
+
+    private void CreateRandomCharacter()
+    {
+        int randomIndex=Random.Range(0,charactersMesh.Count);
+        for (int i = 0; i < charactersMesh.Count; i++)
+        {
+            charactersMesh[i].SetActive(false);
+        }
+        charactersMesh[randomIndex].SetActive(true);
     }
 
 

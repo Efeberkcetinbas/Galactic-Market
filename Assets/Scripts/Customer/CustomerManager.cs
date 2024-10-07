@@ -172,7 +172,7 @@ public class CustomerManager : MonoBehaviour
         EventManager.Broadcast(GameEvent.OnCustomerLeavePress);
         // Wait for effect duration (adjust duration as needed)
         yield return new WaitForSeconds(2f);
-
+        EventManager.Broadcast(GameEvent.OnCustomerLeaved);
         customerObject.transform.DOMoveY(-3,.5f).SetEase(Ease.Linear).OnComplete(()=>{
 
             // Deactivate the customer object
