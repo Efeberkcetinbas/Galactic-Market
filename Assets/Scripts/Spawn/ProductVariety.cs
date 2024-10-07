@@ -6,6 +6,7 @@ public class ProductVariety : MonoBehaviour
 {
     [SerializeField] private List<Transform> productVarieties;
 
+    [SerializeField] private bool isRandomizingColors;
     
 
     // Call this method to randomly activate a child
@@ -20,8 +21,10 @@ public class ProductVariety : MonoBehaviour
         // Randomly select and activate one variety
         int randomIndex = Random.Range(0, productVarieties.Count);
         productVarieties[randomIndex].gameObject.SetActive(true);
+        
         //For Testing
-        productVarieties[randomIndex].GetComponent<MeshRenderer>().material.color=GetRandomColor();
+        if(isRandomizingColors)
+            productVarieties[randomIndex].GetComponent<MeshRenderer>().material.color=GetRandomColor();
     }
 
     //For Testing

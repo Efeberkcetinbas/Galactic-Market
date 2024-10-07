@@ -5,6 +5,9 @@ using DG.Tweening;
 public class CustomerLeavingPoint : MonoBehaviour
 {
     [SerializeField] private List<MeshRenderer> signals=new List<MeshRenderer>();
+    [SerializeField] private List<Transform> portalOpening=new List<Transform>();
+    [SerializeField] private Ease portalEase;
+
     
 
     private WaitForSeconds waitForSeconds;
@@ -36,6 +39,7 @@ public class CustomerLeavingPoint : MonoBehaviour
     private void OnCustomerLeavingPoint()
     {
         SetSignals(Color.green,0.5f);
+        SetOpening(portalOpening,true);
         StartCoroutine(SetCustomerLeaves());
     }
 
@@ -47,6 +51,28 @@ public class CustomerLeavingPoint : MonoBehaviour
         }
     }
 
+    private void SetOpening(List<Transform> lists, bool val)
+    {
+        if(val)
+        {
+            for (int i = 0; i < lists.Count; i++)
+            {
+                lists[i].localScale=Vector3.zero;
+                lists[i].gameObject.SetActive(val);
+                lists[i].DOScale(Vector3.one,0.25f).SetEase(portalEase);
+            }
+        }
+
+        else
+        {
+            for (int i = 0; i < lists.Count; i++)
+            {
+                lists[i].gameObject.SetActive(val);
+            }
+        }
+        
+    }
+
     private IEnumerator SetCustomerLeaves()
     {
         yield return waitForSeconds;
@@ -56,10 +82,12 @@ public class CustomerLeavingPoint : MonoBehaviour
     private void OnCustomerSpawn()
     {
         SetSignals(Color.white,0.25f);
+        SetOpening(portalOpening,false);
     }
 
     private void OnRestartLevel()
     {
         SetSignals(Color.white,0.1f);
+        SetOpening(portalOpening,false);
     }
 }

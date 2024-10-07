@@ -38,6 +38,10 @@ public class PanelManager : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnFailUI,OnFailUI);
         EventManager.AddHandler(GameEvent.OnRestartLevel,OnRestartLevel);
 
+        //Customer
+        EventManager.AddHandler(GameEvent.OnCustomerLeavingPoint,OnCustomerLeavingPoint);
+        EventManager.AddHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
+
     }
 
 
@@ -49,6 +53,10 @@ public class PanelManager : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnFail,OnFail);
         EventManager.RemoveHandler(GameEvent.OnFailUI,OnFailUI);
         EventManager.RemoveHandler(GameEvent.OnRestartLevel,OnRestartLevel);
+
+        //Customer
+        EventManager.RemoveHandler(GameEvent.OnCustomerLeavingPoint,OnCustomerLeavingPoint);
+        EventManager.RemoveHandler(GameEvent.OnCustomerSpawn,OnCustomerSpawn);
 
     }
 
@@ -65,7 +73,15 @@ public class PanelManager : MonoBehaviour
         
     }
 
-    
+    private void OnCustomerLeavingPoint()
+    {
+        ScenePanel.gameObject.SetActive(false);
+    }
+
+    private void OnCustomerSpawn()
+    {
+        ScenePanel.gameObject.SetActive(true);
+    }
     
 
     private void OnRestartLevel()

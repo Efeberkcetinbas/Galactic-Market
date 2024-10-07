@@ -18,9 +18,11 @@ public class ProductSpawner : MonoBehaviour
 
     public float spawnInterval = 1f; // Time interval between spawns
     [SerializeField] private GameData gameData;
-    [SerializeField] private float minX,maxX,minZ,maxZ;
+    [SerializeField] private float minX,maxX,minZ,maxZ,posY;
     [SerializeField] private Ease ease,shootingEase;
-    [SerializeField] private Transform shootingMechanism;
+    [SerializeField] private Transform shootingMechanism,timer,shootingPoint1,shootingPoint2;
+    [SerializeField] private ParticleSystem shootingDust;
+
 
     private int productsInMovement; // Count the products in movement
     private System.Action onAllProductsArrived; // Store the callback
@@ -56,8 +58,11 @@ public class ProductSpawner : MonoBehaviour
         productsInMovement = amount; // Track the number of products to move
         onAllProductsArrived = onSpawnComplete; // Store the callback
         
-        yield return shootingMechanism.transform.DOLocalMoveY(.5f, 1).WaitForCompletion();
-
+        timer.DOLocalMoveY(0.25f,1f);
+        yield return shootingMechanism.DOLocalMoveY(-0.4f, 1).WaitForCompletion();
+        
+        shootingMechanism.DOLookAt(gameData.TargetPos.position,0.1f);
+        shootingDust.Play();
         for (int i = 0; i < amount; i++)
         {
             //Add ShootingMechanic a Shooting Animation
@@ -108,6 +113,8 @@ public class ProductSpawner : MonoBehaviour
         float distance = Vector3.Distance(product.transform.position, targetPosition);
         float duration = distance / speed;
 
+        product.transform.localScale=Vector3.zero;
+        product.transform.DOScale(Vector3.one,0.2f).SetEase(Ease.OutBounce);
         // Move the product using DOTween
         product.transform.DOMove(targetPosition, duration)
             .SetEase(ease) // Constant speed (Linear motion)
@@ -124,7 +131,9 @@ public class ProductSpawner : MonoBehaviour
                     // All products have arrived, invoke the callback
                     onAllProductsArrived?.Invoke();
                     //StopShootingAnimation
-                    shootingMechanism.DOLocalMoveY(0,1).SetEase(shootingEase);
+                    shootingDust.Stop();
+                    shootingMechanism.DOLocalMoveY(-1,1).SetEase(shootingEase);
+                    timer.DOLocalMoveY(.5f,.5f);
                 }
             });
     }
@@ -136,6 +145,6 @@ public class ProductSpawner : MonoBehaviour
     private Vector3 GetRandomSpawnPosition()
     {
         // Logic to determine random spawn positions within the scene
-        return new Vector3(Random.Range(minX, maxX), 1, Random.Range(minZ, maxZ));
+        return new Vector3(Random.Range(shootingPoint1.position.x,shootingPoint2.position.x), posY, Random.Range(minZ, maxZ));
     }
 }

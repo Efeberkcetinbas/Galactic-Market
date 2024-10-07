@@ -29,8 +29,9 @@ public class RemoteControl : MonoBehaviour
     private void OnStopTimer()
     {
         gameData.isGivingProduct=true;
+        timerParticle.Play();
+
         stopTimerButton.DOLocalMoveY(stopTimerY,duration).SetEase(ease).OnComplete(()=>{
-            timerParticle.Play();
             EventManager.Broadcast(GameEvent.OnPressStopTimer);
             stopTimerButton.DOLocalMoveY(stopTimerOldY,duration);
         });
@@ -38,8 +39,9 @@ public class RemoteControl : MonoBehaviour
 
     private void OnCustomerLeavePress()
     {
+        customerParticle.Play();
+
         customerLeaveButton.DOLocalRotate(new Vector3(customerY,0,0),duration).SetEase(ease).OnComplete(()=>{
-            customerParticle.Play();
             EventManager.Broadcast(GameEvent.OnCustomerLeavingPoint);
             customerLeaveButton.DOLocalRotate(new Vector3(oldCustomerY,0,0),duration);
         });
