@@ -132,6 +132,7 @@ public class ProductSpawner : MonoBehaviour
                     onAllProductsArrived?.Invoke();
                     //StopShootingAnimation
                     shootingDust.Stop();
+                    EventManager.Broadcast(GameEvent.OnShootingEnded);
                     shootingMechanism.DOLocalMoveY(-1,1).SetEase(shootingEase);
                     timer.DOLocalMoveY(.5f,.5f);
                 }

@@ -20,6 +20,7 @@ public enum GameEvent
     //Product
     OnSpawnProduct,
     OnProductHit,
+    OnShootingEnded,
     
     //Game Management
     OnGameStart,

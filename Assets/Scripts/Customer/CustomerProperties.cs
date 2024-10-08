@@ -20,6 +20,7 @@ public class CustomerProperties : MonoBehaviour
 
     [Header("Players")]
     [SerializeField] private List<GameObject> charactersMesh;
+    [SerializeField] private ParticleSystem teleportParticle;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
@@ -40,6 +41,7 @@ public class CustomerProperties : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnProductHit,OnProductHit);
         EventManager.AddHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
         EventManager.AddHandler(GameEvent.OnCustomerLeaved,OnCustomerLeaved);
+        EventManager.AddHandler(GameEvent.OnShootingEnded,OnShootingEnded);
     }
 
     private void OnDisable()
@@ -48,6 +50,7 @@ public class CustomerProperties : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnProductHit,OnProductHit);
         EventManager.RemoveHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
         EventManager.RemoveHandler(GameEvent.OnCustomerLeaved,OnCustomerLeaved);
+        EventManager.RemoveHandler(GameEvent.OnShootingEnded,OnShootingEnded);
     }
     
 
@@ -87,6 +90,8 @@ public class CustomerProperties : MonoBehaviour
     private void OnPressStopTimer()
     {
         animator.SetTrigger("CollectProducts");
+        teleportParticle.gameObject.SetActive(true);
+        teleportParticle.Play();
     }
 
     private void OnCustomerLeaved()
@@ -94,7 +99,12 @@ public class CustomerProperties : MonoBehaviour
         animator.SetTrigger("Falling");
     }
 
-
+    private void OnShootingEnded()
+    {
+        animator.SetTrigger("Thanks");
+        teleportParticle.Stop();
+        teleportParticle.gameObject.SetActive(false);
+    }
 
     private void CreateRandomCharacter()
     {
