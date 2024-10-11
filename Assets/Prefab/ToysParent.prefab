@@ -1322,6 +1322,7 @@ MonoBehaviour:
   - {fileID: 3012700945051657559}
   - {fileID: 5445189592446482837}
   - {fileID: 159597917891570836}
+  isRandomizingColors: 1
 --- !u!1 &8725001590407200560
 GameObject:
   m_ObjectHideFlags: 0

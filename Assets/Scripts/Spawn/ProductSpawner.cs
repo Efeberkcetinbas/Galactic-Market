@@ -114,7 +114,11 @@ public class ProductSpawner : MonoBehaviour
         float duration = distance / speed;
 
         product.transform.localScale=Vector3.zero;
-        product.transform.DOScale(Vector3.one,0.2f).SetEase(Ease.OutBounce);
+        DOTween.Sequence()
+            .Append(product.transform.DOScale(Vector3.one,duration*.5f).SetEase(Ease.OutBounce))
+            .Append(product.transform.DOScale(Vector3.zero, duration / 2).SetEase(Ease.InQuad));
+        
+        //product.transform.DOScale(Vector3.one,0.2f).SetEase(Ease.OutBounce);
         // Move the product using DOTween
         product.transform.DOMove(targetPosition, duration)
             .SetEase(ease) // Constant speed (Linear motion)

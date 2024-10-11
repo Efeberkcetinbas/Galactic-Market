@@ -23,7 +23,8 @@ public class CustomerProperties : MonoBehaviour
     [SerializeField] private ParticleSystem teleportParticle;
 
     [Header("Animation")]
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animatorWestern;
+    [SerializeField] private Animator animatorPirate;
 
     private WaitForSeconds waitForSeconds;
     
@@ -89,19 +90,22 @@ public class CustomerProperties : MonoBehaviour
 
     private void OnPressStopTimer()
     {
-        animator.SetTrigger("CollectProducts");
+        animatorWestern.SetTrigger("CollectProducts");
+        animatorPirate.SetTrigger("CollectProducts");
         teleportParticle.gameObject.SetActive(true);
         teleportParticle.Play();
     }
 
     private void OnCustomerLeaved()
     {
-        animator.SetTrigger("Falling");
+        animatorWestern.SetTrigger("Falling");
+        animatorPirate.SetTrigger("Falling");
     }
 
     private void OnShootingEnded()
     {
-        animator.SetTrigger("Thanks");
+        animatorWestern.SetTrigger("Thanks");
+        animatorPirate.SetTrigger("Thanks");
         teleportParticle.Stop();
         teleportParticle.gameObject.SetActive(false);
     }
