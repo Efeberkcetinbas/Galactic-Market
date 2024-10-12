@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 
     //Gameplay Sounds
     [SerializeField] private AudioClip spawnProductSound,customerLeavingPointSound,stopTimerSound,customerSpawnSound,customerSatisfySound,
-    customerLeavesSound,customerLeavePressSound,pressStopTimer;
+    customerLeavesSound,customerLeavePressSound,pressStopTimer,typingSound;
 
     AudioSource musicSource,effectSource;
 
@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
         EventManager.AddHandler(GameEvent.OnSpawnProduct,OnSpawnProduct);
         EventManager.AddHandler(GameEvent.OnStopTimer,OnStopTimer);
         EventManager.AddHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
+        EventManager.AddHandler(GameEvent.OnCustomerNameTyping,OnCustomerNameTyping);
         
 
     }
@@ -61,6 +62,7 @@ public class AudioManager : MonoBehaviour
         EventManager.RemoveHandler(GameEvent.OnSpawnProduct,OnSpawnProduct);
         EventManager.RemoveHandler(GameEvent.OnStopTimer,OnStopTimer);
         EventManager.RemoveHandler(GameEvent.OnPressStopTimer,OnPressStopTimer);
+        EventManager.RemoveHandler(GameEvent.OnCustomerNameTyping,OnCustomerNameTyping);
 
     }
 
@@ -106,6 +108,11 @@ public class AudioManager : MonoBehaviour
     private void OnCustomerSatisfy()
     {
         effectSource.PlayOneShot(customerSatisfySound);
+    }
+
+    private void OnCustomerNameTyping()
+    {
+        effectSource.PlayOneShot(typingSound);    
     }
 
     private void OnSpawnProduct()

@@ -16,6 +16,7 @@ public enum GameEvent
     OnCustomerLeaved,
     OnAllCustomerSatisfy,
     OnUpdateCustomerNumber,
+    OnCustomerNameTyping,
 
     //Product
     OnSpawnProduct,

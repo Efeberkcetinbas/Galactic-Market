@@ -16,7 +16,7 @@ public class CustomerManager : MonoBehaviour
     // Every level it can be specified hole type or particle type
     [SerializeField] private ParticleSystem EnterCustomerParticle;
 
-    
+    [SerializeField] private Transform successPaper,failPaper;
     
 
     // Private variables
@@ -131,6 +131,7 @@ public class CustomerManager : MonoBehaviour
         if (CheckCustomerRequest(playerInput))
         {
             Debug.Log($"Customer {currentCustomer.customerName} is satisfied!");
+            CheckConclusion(successPaper);
             EventManager.Broadcast(GameEvent.OnCustomerSatisfy);
             // Start the coroutine for the customer leaving
             StartCoroutine(CustomerLeaves(activeCustomerObject));
@@ -139,6 +140,7 @@ public class CustomerManager : MonoBehaviour
         else
         {
             Debug.Log($"Customer {currentCustomer.customerName} is dissatisfied.");
+            CheckConclusion(failPaper);
             EventManager.Broadcast(GameEvent.OnFail);
             // Optionally handle dissatisfaction (e.g., allow retry, apply penalty)
             return false;
@@ -194,6 +196,10 @@ public class CustomerManager : MonoBehaviour
         ServeNextCustomer();
     }
 
+    private void CheckConclusion(Transform conclusion)
+    {
+        conclusion.DOScale(Vector3.one,0.5f).SetEase(Ease.OutElastic).OnComplete(()=>conclusion.DOScale(Vector3.zero,0.5f));
+    }
 
     private void OnPressStopTimer()
     {

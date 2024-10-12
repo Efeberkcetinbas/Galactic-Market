@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI customerRequirementText;
     [SerializeField] private TextMeshProUGUI customerName;
     [SerializeField] private Image customerPlanetImage;
+    [SerializeField] private float typingSpeed = 0.1f; // Time between each letter
     
 
     [Header("DATA'S")]
@@ -132,10 +133,22 @@ public class UIManager : MonoBehaviour
         }
 
            //($"Customer {currentCustomer.customerName} from {currentCustomer.planetName} has arrived!")
-        customerName.SetText("Name : " + customerData.customerName);
+        StartCoroutine(TypeName(customerData.customerName));
+        //customerName.SetText("Name : " + customerData.customerName);
         customerPlanetImage.sprite=customerData.sprite;
 
 
+    }
+
+    private IEnumerator TypeName(string nameToDisplay)
+    {
+        customerName.text = ""; // Clear the text initially
+        foreach (char letter in nameToDisplay)
+        {
+            customerName.text += letter; // Add each letter to the text
+            EventManager.Broadcast(GameEvent.OnCustomerNameTyping);
+            yield return new WaitForSeconds(typingSpeed); // Wait for typingSpeed before showing the next letter
+        }
     }
     
 }
