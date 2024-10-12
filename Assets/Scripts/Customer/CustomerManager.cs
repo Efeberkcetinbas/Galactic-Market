@@ -106,8 +106,7 @@ public class CustomerManager : MonoBehaviour
             EventManager.Broadcast(GameEvent.OnCustomerSpawn);
             
             
-            // Optionally set customer-specific properties here if needed
-            Debug.Log($"Customer {currentCustomer.customerName} from {currentCustomer.planetName} has arrived!");
+            
 
             // Increment the index for the next customer
             currentCustomerIndex++;
@@ -130,7 +129,6 @@ public class CustomerManager : MonoBehaviour
         // Check if the player's input satisfies the customer's request
         if (CheckCustomerRequest(playerInput))
         {
-            Debug.Log($"Customer {currentCustomer.customerName} is satisfied!");
             CheckConclusion(successPaper);
             EventManager.Broadcast(GameEvent.OnCustomerSatisfy);
             // Start the coroutine for the customer leaving
@@ -139,7 +137,6 @@ public class CustomerManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Customer {currentCustomer.customerName} is dissatisfied.");
             CheckConclusion(failPaper);
             EventManager.Broadcast(GameEvent.OnFail);
             // Optionally handle dissatisfaction (e.g., allow retry, apply penalty)

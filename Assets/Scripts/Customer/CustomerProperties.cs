@@ -20,7 +20,6 @@ public class CustomerProperties : MonoBehaviour
 
     [Header("Players")]
     [SerializeField] private List<GameObject> charactersMesh;
-    [SerializeField] private ParticleSystem teleportParticle;
 
     [Header("Animation")]
     [SerializeField] private Animator animatorWestern;
@@ -92,8 +91,6 @@ public class CustomerProperties : MonoBehaviour
     {
         animatorWestern.SetTrigger("CollectProducts");
         animatorPirate.SetTrigger("CollectProducts");
-        teleportParticle.gameObject.SetActive(true);
-        teleportParticle.Play();
     }
 
     private void OnCustomerLeaved()
@@ -106,8 +103,6 @@ public class CustomerProperties : MonoBehaviour
     {
         animatorWestern.SetTrigger("Thanks");
         animatorPirate.SetTrigger("Thanks");
-        teleportParticle.Stop();
-        teleportParticle.gameObject.SetActive(false);
     }
 
     private void CreateRandomCharacter()

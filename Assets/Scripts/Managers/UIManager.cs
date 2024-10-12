@@ -16,7 +16,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI customerRequirementText;
     [SerializeField] private TextMeshProUGUI customerName;
     [SerializeField] private Image customerPlanetImage;
+    [SerializeField] private List<Sprite> planets=new List<Sprite>();
     [SerializeField] private float typingSpeed = 0.1f; // Time between each letter
+
+    
     
 
     [Header("DATA'S")]
@@ -26,6 +29,13 @@ public class UIManager : MonoBehaviour
     [Header("Progress")]
     [SerializeField] private List<Image> progressImages=new List<Image>();
     private int index=0;
+
+    //Random Name Generator
+    private List<string> prefixes = new List<string> { "Ka", "Al", "El", "Mar", "Ra", "Thal" };
+    private List<string> middleParts = new List<string> { "le", "dor", "zon", "win", "nar", "mel" };
+    private List<string> suffixes = new List<string> { "on", "el", "us", "ar", "eth", "is" };
+    
+    private const int maxNameLength = 10; // Max length of 10 characters
 
     private void OnEnable()
     {
@@ -132,12 +142,48 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-           //($"Customer {currentCustomer.customerName} from {currentCustomer.planetName} has arrived!")
-        StartCoroutine(TypeName(customerData.customerName));
-        //customerName.SetText("Name : " + customerData.customerName);
-        customerPlanetImage.sprite=customerData.sprite;
+        string randomName=GenerateName();
+        StartCoroutine(TypeName(randomName));
+        
+        PlanetSelector();
 
 
+    }
+
+    private void PlanetSelector()
+    {
+        int randomPlanetIndex=Random.Range(0,planets.Count);
+        customerPlanetImage.sprite=planets[randomPlanetIndex];
+    }
+
+    //Random Name Generator
+    private string GenerateName()
+    {
+        string name = "";
+
+        // Always start with a prefix
+        string prefix = prefixes[Random.Range(0, prefixes.Count)];
+        name += prefix;
+
+        // Optionally include a middle part, only if it won't exceed maxNameLength
+        bool includeMiddle = Random.Range(0, 2) == 0; // 50% chance
+        if (includeMiddle)
+        {
+            string middlePart = middleParts[Random.Range(0, middleParts.Count)];
+            if (name.Length + middlePart.Length <= maxNameLength)
+            {
+                name += middlePart;
+            }
+        }
+
+        // Always include a suffix, if it won't exceed maxNameLength
+        string suffix = suffixes[Random.Range(0, suffixes.Count)];
+        if (name.Length + suffix.Length <= maxNameLength)
+        {
+            name += suffix;
+        }
+
+        return name;
     }
 
     private IEnumerator TypeName(string nameToDisplay)
