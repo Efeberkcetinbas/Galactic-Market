@@ -64,6 +64,7 @@ public class CoinSpawner : MonoBehaviour
                 // Stop the beam and return the coin to the pool
                 StopTeleportBeam();
                 coinPool.ReturnCoin(coin);
+                EventManager.Broadcast(GameEvent.OnCoinPulled);
             });
     }
 

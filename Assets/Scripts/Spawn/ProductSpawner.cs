@@ -63,6 +63,7 @@ public class ProductSpawner : MonoBehaviour
         
         shootingMechanism.DOLookAt(gameData.TargetPos.position,0.1f);
         shootingDust.Play();
+        EventManager.Broadcast(GameEvent.OnShootingBegin);
         for (int i = 0; i < amount; i++)
         {
             //Add ShootingMechanic a Shooting Animation

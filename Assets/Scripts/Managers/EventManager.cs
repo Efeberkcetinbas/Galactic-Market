@@ -21,6 +21,8 @@ public enum GameEvent
     OnSpawnProduct,
     OnProductHit,
     OnShootingEnded,
+    OnCoinPulled,
+    OnShootingBegin,
     
     //Game Management
     OnGameStart,
